@@ -25,8 +25,17 @@ function listBooks() {
   container.innerHTML = null
 
   library.forEach((book, index) => {
-    container.innerHTML += `<div data-id="${index}"><h1>${book.title}</h2><h5>${book.author}</h5><p>${book.pages}</p></div>`
+    container.innerHTML += 
+    `<div data-id="${index}"><h1>${book.title}</h2><h5>${book.author}</h5><p>${book.pages}</p><button class='deleteBtn'>Delete</button></div>`
   })
+
+  for (const btn of deleteBtns) {
+    btn.addEventListener('click', () => {
+      const id = btn.parentNode.dataset.id
+      deleteBook(id)
+      listBooks()
+    })
+  }
 }
 
 function deleteBook(id) {
@@ -46,6 +55,7 @@ const newBookBtn = document.getElementById('newBookBtn')
 const closeBtn = document.getElementById('closeBtn')
 const submitBtn = document.getElementById('submitBtn')
 const dialog = document.getElementById('dialog')
+const deleteBtns = document.getElementsByClassName('deleteBtn')
 
 newBookBtn.addEventListener('click', () => {
   dialog.showModal()
