@@ -25,14 +25,21 @@ function listBooks() {
   container.innerHTML = null
 
   library.forEach((book, index) => {
-    container.innerHTML += 
-    `<div data-id="${index}"><h1>${book.title}</h2><h5>${book.author}</h5><p>${book.pages}</p><button class='deleteBtn'>Delete</button></div>`
+    container.innerHTML += `<div data-id="${index}"><h1>${book.title}</h2><h3>${book.isRead ? 'Read' : 'Not read yet'}</h3><h5>${book.author}</h5><p>${book.pages}</p><button class='deleteBtn'>Delete</button><button class='readBtn'>Toggle read</button></div>`
   })
 
   for (const btn of deleteBtns) {
     btn.addEventListener('click', () => {
       const id = btn.parentNode.dataset.id
       deleteBook(id)
+      listBooks()
+    })
+  }
+
+  for (const btn of readBtns) {
+    btn.addEventListener('click', () => {
+      const id = btn.parentNode.dataset.id
+      readBook(id)
       listBooks()
     })
   }
@@ -43,12 +50,7 @@ function deleteBook(id) {
 }
 
 function readBook(id) {
-  library = library.map((book, index) => {
-    if (index === id) {
-      book.isRead = true
-      return
-    }
-  })
+  library[id].isRead = !library[id].isRead
 }
 
 const newBookBtn = document.getElementById('newBookBtn')
@@ -56,6 +58,7 @@ const closeBtn = document.getElementById('closeBtn')
 const submitBtn = document.getElementById('submitBtn')
 const dialog = document.getElementById('dialog')
 const deleteBtns = document.getElementsByClassName('deleteBtn')
+const readBtns = document.getElementsByClassName('readBtn')
 
 newBookBtn.addEventListener('click', () => {
   dialog.showModal()
