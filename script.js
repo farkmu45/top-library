@@ -1,20 +1,23 @@
-const library = [
-  new Book('Test1', 'Fark', 100, false),
-  new Book('Test2', 'Einstein', 100, false),
-  new Book('How to be', 'Andy', 20, false),
-]
+class Book {
+  constructor (title, author, pages, isRead) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.isRead = isRead
+  }
 
-function Book(title, author, pages, isRead) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.isRead = isRead
-  this.info = function () {
+  info () {
     return `${title} by ${author}, ${pages} pages, ${
       !isRead ? 'not read yet' : ''
     }`
   }
 }
+
+const library = [
+  new Book('Test1', 'Fark', 100, false),
+  new Book('Test2', 'Einstein', 100, false),
+  new Book('How to be', 'Andy', 20, false),
+]
 
 function addBookToLibrary(book) {
   library.push(book)
